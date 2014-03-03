@@ -50,6 +50,14 @@ public class Point {
 	}
 	
 	/**
+	 * Sets the position to the value described by a Point.
+	 */
+	public void set(Point p) {
+		setX(p.x);
+		setY(p.y);
+	}
+	
+	/**
 	 * Change the position in the x direction by dx, and the y direction by dy.
 	 */
 	public void change(int dx, int dy) {

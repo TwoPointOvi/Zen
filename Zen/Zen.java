@@ -433,6 +433,10 @@ public class Zen extends JApplet {
 	public static int getZenHeight() {
 		return getInstanceFromThread().getZenHeight();
 	}
+	
+	public static Point getMouseClick() {
+		return new Point(Zen.getMouseClickX(), Zen.getMouseClickY());
+	}
 
 	public static int getMouseClickX() {
 		return getInstanceFromThread().getMouseClickX();
@@ -445,6 +449,10 @@ public class Zen extends JApplet {
 	public static long getMouseClickTime() {
 		return getInstanceFromThread().getMouseClickTime();
 	}
+	
+	public static boolean isMouseClicked() {
+		return getInstanceFromThread().isMouseClicked();
+	}
 
 	public static void setEditText(String s) {
 		getInstanceFromThread().setEditText(s);
@@ -456,6 +464,10 @@ public class Zen extends JApplet {
 
 	public static int getMouseButtonsAndModifierKeys() {
 		return getInstanceFromThread().getMouseButtonsAndModifierKeys();
+	}
+	
+	public static Point getMouse() {
+		return new Point(Zen.getMouseX(), Zen.getMouseY());
 	}
 
 	public static int getMouseX() {
@@ -538,11 +550,24 @@ public class Zen extends JApplet {
 		getInstanceFromThread().fillPolygon(x, y);
 	}
 	
+	public static void setBackground(int red, int green, int blue) {
+		Zen.setColor(red, green, blue);
+		Zen.fillRect(0, 0, Zen.width, Zen.height);
+	}
+	
 	public static void setBackground(String color) {
 		if (color != null) {
 			Zen.setColor(color);
 			Zen.fillRect(0, 0, Zen.width, Zen.height);
 		}
+	}
+	
+	public static void setHSB(float hue, float saturation, float brightness) {
+		getInstanceFromThread().setHSB(hue, saturation, brightness);
+	}
+	
+	public static void setRGB(int red, int green, int blue) {
+		getInstanceFromThread().setColor(red, green, blue);
 	}
 	
 	public static void setColor(String color) {
@@ -730,6 +755,15 @@ public class Zen extends JApplet {
 		public void setColor(int red, int green, int blue) {
 			currentColor = new Color(bound(red, 0, 255), bound(green, 0, 255),
 					bound(blue, 0, 255));
+			getBufferGraphics().setColor(currentColor);
+		}
+		
+		public void setRGB(int red, int green, int blue) {
+			setColor(red, green, blue);
+		}
+		
+		public void setHSB(float hue, float saturation, float brightness) {
+			currentColor = new Color(hue, saturation, brightness);
 			getBufferGraphics().setColor(currentColor);
 		}
 
